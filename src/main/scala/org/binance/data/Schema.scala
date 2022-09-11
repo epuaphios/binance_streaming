@@ -1,5 +1,4 @@
-package com.binance.websocket.data
-
+package org.binance.data
 
 import spray.json._
 import DefaultJsonProtocol._
