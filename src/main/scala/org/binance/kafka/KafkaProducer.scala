@@ -7,16 +7,16 @@ import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.model.ws.{Message, TextMessage, WebSocketRequest, WebSocketUpgradeResponse}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.{Flow, Keep, Sink}
-import com.softwaremill.react.kafka.{ProducerProperties, ReactiveKafka}
+import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
 import scala.concurrent.Promise
 import akka.stream.scaladsl.Source
-import kafka.producer.ReactiveKafkaProducer
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
-
 import com.binance.websocket.data.Schema._
 import spray.json._
+
+import java.util.Properties
 import scala.util.parsing.json.JSONObject
 
 /**
@@ -31,27 +31,27 @@ object KafkaProducer {
     implicit val materializer = ActorMaterializer()
     import system.dispatcher
 
-    val kafka = new ReactiveKafka()
 
-    val producer = ReactiveKafkaProducer[Array[Byte], String](
-      ProducerProperties(
-        bootstrapServers = "localhost:9092",
-        topic = "binance",
-        valueSerializer = new StringSerializer()
-      )
-    )
+    val kafkaProducerProps: Properties = {
+      val props = new Properties()
+      props.put("bootstrap.servers", "localhost:9092")
+      props.put("key.serializer", classOf[StringSerializer].getName)
+      props.put("value.serializer", classOf[StringSerializer].getName)
+      props
+    }
+
+    val producer = new KafkaProducer[String, String](kafkaProducerProps)
+
 
     val flow: Flow[Message, Message, Promise[Option[Message]]] =
       Flow.fromSinkAndSourceMat(
         Sink.foreach[Message](
           record => {
             println(record.asInstanceOf[TextMessage].getStrictText)
-            producer.producer.send(
-              new ProducerRecord[Array[Byte],String]("binance",
+            producer.send("binance",
                 record
                   .asInstanceOf[TextMessage]
                   .getStrictText)
-            )
           }
         ),
         Source.maybe[Message])(Keep.right)

@@ -1,5 +1,11 @@
 package org.binance
 
+import org.apache.spark.sql.catalyst.dsl.expressions.DslSymbol
+import org.apache.spark.sql.functions.from_json
+import org.apache.spark.sql.{DataFrame, RuntimeConfig, SparkSession}
+import org.apache.spark.sql.streaming.Trigger
+import org.binance.spark.VWAPCombiner
+
 import java.util.concurrent.TimeUnit
 
 /**

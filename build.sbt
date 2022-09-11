@@ -15,10 +15,9 @@ lazy val root = (project in file("."))
       "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion,
       "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkVersion,
       "io.spray" %% "spray-json" % "1.3.6",
-
+      "org.apache.kafka" % "kafka-clients" % "3.2.1",
       "com.typesafe.akka" %% "akka-http" % "10.2.9",
       "com.typesafe.akka" %% "akka-http-testkit" % "10.2.9" % Test,
-
       "com.typesafe.play" %% "play-ahc-ws-standalone" % "2.1.10",
       "com.typesafe.akka" %% "akka-actor" % "2.6.19",
       "org.twitter4j" %"twitter4j-stream" %"4.0.7",
