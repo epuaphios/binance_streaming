@@ -1,15 +1,15 @@
 package org.binance.spark
 
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.expressions.{MutableAggregationBuffer, UserDefinedAggregateFunction}
+import org.apache.spark.sql.types.{DataType, DoubleType, StructField, StructType}
+
 /**
   * Created by ragrawal on 9/23/15.
   * Computes Mean
   */
 
-//Extend UserDefinedAggregateFunction to write custom aggregate function
-//You can also specify any constructor arguments. For instance you
-//can have CustomMean(arg1: Int, arg2: String)
-//https://ragrawal.wordpress.com/2015/11/03/spark-custom-udaf-example/
-//https://www.jowanza.com/blog/a-gentle-intro-to-udafs-in-apache-spark
+
 class VWAPCombiner() extends UserDefinedAggregateFunction {
 
   // Input Data Type Schema

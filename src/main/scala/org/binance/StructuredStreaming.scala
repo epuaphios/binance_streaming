@@ -1,7 +1,6 @@
 package org.binance
 
 import org.apache.spark.sql.catalyst.dsl.expressions.DslSymbol
-import org.apache.spark.sql.functions.from_json
 import org.apache.spark.sql.{DataFrame, RuntimeConfig, SparkSession}
 import org.apache.spark.sql.streaming.Trigger
 import org.binance.spark.VWAPCombiner
@@ -47,7 +46,7 @@ object StructuredStreaming {
   }
   def main(args: Array[String]): Unit = {
 
-    val conf = new RuntimeConfig(args)
+    val conf = new RuntimeConfig()
     val batchTimeInSeconds = conf.batchTimeInSeconds.getOrElse(10)
 
     val vwapCombiner = new VWAPCombiner()

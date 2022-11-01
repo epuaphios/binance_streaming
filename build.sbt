@@ -22,12 +22,11 @@ lazy val root = (project in file("."))
       "com.typesafe.akka" %% "akka-actor" % "2.6.19",
       "org.twitter4j" %"twitter4j-stream" %"4.0.7",
       "com.typesafe.play" %% "play-json" % "2.9.3",
-
       "org.rogach" %% "scallop" % "4.1.0",
-
       "org.scala-lang" % "scala-actors" % "2.11.12",
       "com.typesafe.akka" %% "akka-stream" % "2.6.19",
       "com.typesafe.akka" %% "akka-stream-kafka" % "2.1.1",
-        "com.softwaremill.reactivekafka" %% "reactive-kafka-core" % "0.10.0"
+      "org.apache.kafka" % "kafka-clients" % "3.2.1"
+
       ).map(_.exclude ("org.slf4j", "log4j-over-slf4j"))
   )
