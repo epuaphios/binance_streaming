@@ -1,10 +1,10 @@
 package org.binance
 
-import org.apache.spark.sql.catalyst.dsl.expressions.{DslSymbol, StringToAttributeConversionHelper}
-import org.apache.spark.sql.functions.{col, from_json, from_unixtime, unix_timestamp, window}
-import org.apache.spark.sql.{DataFrame, RuntimeConfig, SparkSession}
+import org.apache.spark.sql.functions.{col, from_json, from_unixtime, window}
 import org.apache.spark.sql.streaming.Trigger
 import org.apache.spark.sql.types.TimestampType
+import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.binance.data.Schema.tradeStreamsSchema
 import org.binance.spark.VWAPCombiner
 
@@ -49,8 +49,6 @@ object StructuredStreaming {
   }
   def main(args: Array[String]): Unit = {
 
-    val conf = new RuntimeConfig()
-    val batchTimeInSeconds = conf.batchTimeInSeconds.getOrElse(10)
 
     val vwapCombiner = new VWAPCombiner()
     val spark = SparkSession
@@ -60,6 +58,9 @@ object StructuredStreaming {
       .config("spark.sql.streaming.checkpointLocation","/tmp/blockchain-streaming/sql-streaming-checkpoint")
       .master("local[4]")
       .getOrCreate()
+
+    val ssc = new StreamingContext(spark.sparkContext,Seconds(15))
+
 
     spark.sparkContext.setLogLevel("ERROR")
 
@@ -103,8 +104,6 @@ object StructuredStreaming {
     //.groupBy("s")
     //.sum("sum(pq)", "sum(q)")
 
-    aggDfToConsole(vwapOverSqlStatement, batchTimeInSeconds)
-    aggDfToConsole(vwap, batchTimeInSeconds, is_last = false)
 
     vwapOverSqlStatement
       .writeStream
@@ -125,7 +124,7 @@ object StructuredStreaming {
       .writeStream
 //      .outputMode("complete")
       .format("console")
-      .trigger(Trigger.Continuous(batchTimeInSeconds, TimeUnit.SECONDS))
+      //.trigger(Trigger.Continuous(batchTimeInSeconds, TimeUnit.SECONDS))
       .option("truncate",false)
       .start()
       .awaitTermination()

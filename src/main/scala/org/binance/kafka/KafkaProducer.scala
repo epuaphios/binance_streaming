@@ -4,20 +4,14 @@ import akka.Done
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.StatusCodes
-import akka.http.scaladsl.model.ws.{Message, TextMessage, WebSocketRequest, WebSocketUpgradeResponse}
+import akka.http.scaladsl.model.ws.{Message, TextMessage, WebSocketRequest}
 import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.{Flow, Keep, Sink}
+import akka.stream.scaladsl.{Flow, Keep, Sink, Source}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
-
-import scala.concurrent.Promise
-import akka.stream.scaladsl.Source
-import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
-import com.binance.websocket.data.Schema._
-import spray.json._
 
 import java.util.Properties
-import scala.util.parsing.json.JSONObject
+import scala.concurrent.Promise
 
 /**
  * Modified version of
@@ -48,10 +42,7 @@ object KafkaProducer {
         Sink.foreach[Message](
           record => {
             println(record.asInstanceOf[TextMessage].getStrictText)
-            producer.send("binance",
-                record
-                  .asInstanceOf[TextMessage]
-                  .getStrictText)
+            producer.send(new ProducerRecord[String, String]("binance", record.asInstanceOf[TextMessage].getStrictText))
           }
         ),
         Source.maybe[Message])(Keep.right)

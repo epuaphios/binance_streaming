@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +22,13 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Scala Object" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -65,6 +74,26 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
+  <component name="RunManager">
+    <configuration name="StructuredStreaming" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="org.binance.StructuredStreaming" />
+      <module name="binance_streaming" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.binance.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.StructuredStreaming" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -79,7 +108,7 @@
       <workItem from="1664025973056" duration="542000" />
       <workItem from="1667343268135" duration="782000" />
       <workItem from="1667410671449" duration="1717000" />
-      <workItem from="1673211758085" duration="2179000" />
+      <workItem from="1673211758085" duration="4736000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -88,7 +117,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662932997550</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="sec">
+      <created>1673213943345</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1673213943345</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
