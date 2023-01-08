@@ -1,8 +1,11 @@
 package org.binance
 
-import org.apache.spark.sql.catalyst.dsl.expressions.DslSymbol
+import org.apache.spark.sql.catalyst.dsl.expressions.{DslSymbol, StringToAttributeConversionHelper}
+import org.apache.spark.sql.functions.{col, from_json, from_unixtime, unix_timestamp, window}
 import org.apache.spark.sql.{DataFrame, RuntimeConfig, SparkSession}
 import org.apache.spark.sql.streaming.Trigger
+import org.apache.spark.sql.types.TimestampType
+import org.binance.data.Schema.tradeStreamsSchema
 import org.binance.spark.VWAPCombiner
 
 import java.util.concurrent.TimeUnit
@@ -66,14 +69,13 @@ object StructuredStreaming {
       .option("subscribe", "binance")
       .option("kafka.bootstrap.servers", "localhost:9092")
       .load
-      .select('value cast "string" as "json")
-      .select(from_json($"json", tradeStreamsSchema) as "data")
-      .select("data.*")
-      .withColumn("p",  $"p" cast "double")
-      .withColumn("q",  $"q" cast "double")
-      .withColumn("pq", $"p" * $"q")
-      .withColumn("T", from_unixtime(($"T" cast "bigint")/1000).cast(TimestampType))
-      //      .withColumn("T", unix_timestamp($"T", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").cast(TimestampType))
+      .selectExpr("cast(value as string) as value") //casting binary values into string
+      .select(from_json(col("value"), tradeStreamsSchema).alias("tmp")).select("tmp.*")
+      .withColumn("p",  col("p").cast("double"))
+      .withColumn("q",  col("q").cast("double"))
+      .withColumn("pq", col("p") * col("q"))
+      .withColumn("T", from_unixtime(col("T").cast ("bigint")/1000).cast(TimestampType))
+//      .withColumn("T", unix_timestampmp($"T", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").cast(TimestampType))
       .withWatermark("T", "5 seconds")
     //          .as[TradeStreams] //Enable to do any Dataset operations
 
@@ -86,15 +88,15 @@ object StructuredStreaming {
 
     val vwapOverSqlStatement = spark
       .sql(sql)
-      .withColumn("vwapOverSqlStatement", $"sum_pq" / $"sum_q")
-      .withColumn("value", $"vwapOverSqlStatement".cast("string"))
+      .withColumn("vwapOverSqlStatement",  col("sum_pq") /  col("sum_q"))
+      .withColumn("value",  col("vwapOverSqlStatement").cast("string"))
 
     vwapOverSqlStatement.printSchema()
 
     val vwap = tradeStream
       .groupBy(
-        window($"T", "10 seconds", "5 seconds"),
-        $"s"
+        window(col("T"), "10 seconds", "5 seconds"),
+        col("s")
       ).sum("pq", "q")
 
     //(run-main-1) org.apache.spark.sql.AnalysisException: Multiple streaming aggregations are not supported with streaming DataFrames/Datasets;;
@@ -119,7 +121,7 @@ object StructuredStreaming {
       .option("subscribe","vwap")
       .option("kafka.bootstrap.servers", "localhost:9092")
       .load
-      .select('value cast "string" as "vwapFromSparkStreaming")
+      .selectExpr("cast(value as string) as vwapFromSparkStreaming") //casting binary values into string
       .writeStream
 //      .outputMode("complete")
       .format("console")
