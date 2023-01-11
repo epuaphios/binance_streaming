@@ -4,7 +4,6 @@ import org.apache.spark.sql.functions.{col, from_json, from_unixtime, window}
 import org.apache.spark.sql.streaming.Trigger
 import org.apache.spark.sql.types.TimestampType
 import org.apache.spark.sql.{DataFrame, SparkSession}
-import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.binance.data.Schema.tradeStreamsSchema
 import org.binance.spark.VWAPCombiner
 
@@ -59,7 +58,7 @@ object StructuredStreaming {
       .master("local[4]")
       .getOrCreate()
 
-    val ssc = new StreamingContext(spark.sparkContext,Seconds(15))
+//    val ssc = new StreamingContext(spark.sparkContext,Seconds(15))
 
 
     spark.sparkContext.setLogLevel("ERROR")
