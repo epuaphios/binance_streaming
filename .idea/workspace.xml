@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +126,7 @@
       <workItem from="1673295422193" duration="1174000" />
       <workItem from="1673382166569" duration="437000" />
       <workItem from="1673462594686" duration="125000" />
-      <workItem from="1673901656981" duration="2636000" />
+      <workItem from="1673901656981" duration="3297000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -150,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673462599017</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="docker-compose">
+      <created>1673904318053</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1673904318053</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +175,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sec" />
-    <option name="LAST_COMMIT_MESSAGE" value="sec" />
+    <MESSAGE value="docker-compose" />
+    <option name="LAST_COMMIT_MESSAGE" value="docker-compose" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
