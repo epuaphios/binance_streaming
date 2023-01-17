@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +76,7 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.KafkaProducer">
+  <component name="RunManager" selected="Application.StructuredStreaming">
     <configuration name="KafkaProducer" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.binance.kafka.KafkaProducer" />
       <module name="binance_streaming" />
@@ -103,8 +105,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.KafkaProducer" />
         <item itemvalue="Application.StructuredStreaming" />
+        <item itemvalue="Application.KafkaProducer" />
       </list>
     </recent_temporary>
   </component>
@@ -126,7 +128,7 @@
       <workItem from="1673295422193" duration="1174000" />
       <workItem from="1673382166569" duration="437000" />
       <workItem from="1673462594686" duration="125000" />
-      <workItem from="1673901656981" duration="3297000" />
+      <workItem from="1673901656981" duration="6550000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -156,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673904318053</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="docker-compose">
+      <created>1673904956913</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1673904956913</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
