@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/modules/binance_streaming-build.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/binance_streaming-build.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/binance_streaming.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/binance_streaming.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +23,23 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="SBT">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="binance_streaming" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -61,6 +80,10 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;scala.compiler&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -76,7 +99,7 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StructuredStreaming">
+  <component name="RunManager" selected="Application.KafkaProducer">
     <configuration name="KafkaProducer" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.binance.kafka.KafkaProducer" />
       <module name="binance_streaming" />
@@ -105,8 +128,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StructuredStreaming" />
         <item itemvalue="Application.KafkaProducer" />
+        <item itemvalue="Application.StructuredStreaming" />
       </list>
     </recent_temporary>
   </component>
@@ -129,6 +152,15 @@
       <workItem from="1673382166569" duration="437000" />
       <workItem from="1673462594686" duration="125000" />
       <workItem from="1673901656981" duration="6550000" />
+      <workItem from="1674150869222" duration="15000" />
+      <workItem from="1674256307770" duration="1399000" />
+      <workItem from="1674258412843" duration="730000" />
+      <workItem from="1674259164098" duration="457000" />
+      <workItem from="1674339919239" duration="525000" />
+      <workItem from="1674409152731" duration="1531000" />
+      <workItem from="1674413422386" duration="596000" />
+      <workItem from="1674415414015" duration="398000" />
+      <workItem from="1675618347141" duration="2918000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
