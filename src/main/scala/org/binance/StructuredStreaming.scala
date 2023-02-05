@@ -1,6 +1,7 @@
 package org.binance
 
-import org.apache.spark.sql.functions.{arrays_zip, col, from_json}
+import org.apache.spark.sql.expressions.Window
+import org.apache.spark.sql.functions.{col, explode, first, from_json}
 import org.apache.spark.sql.streaming.Trigger
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.binance.data.Schema.arrayArraySchema
@@ -70,11 +71,22 @@ object StructuredStreaming {
       .option("startingOffsets", "earliest")
       .load
       .selectExpr("cast(value as string) as value") //casting binary values into string
-      .select(from_json(col("value"), arrayArraySchema).alias("tmp")).select(col("tmp.lastUpdateId"), arrays_zip(col("tmp.bids"),col("tmp.asks")))
+      .select(from_json(col("value"), arrayArraySchema).alias("tmp")).select(col("tmp.lastUpdateId"), explode(col("tmp.bids"))).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"))
+
+    val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
+
+  tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=500).show(false)
 
 
 
-    tradeStream.show(false)
+//    tradeStream.groupBy("lastUpdateId").agg(max(col("q"))).where(col("max(q)")>=1000).show(false)
+//
+//    tradeStream.
+
+
+//
+//
+//    tradeStream.show(false)
 //    tradeStream.printSchema()
 //      .withColumn("p",  col("p").cast("double"))
 //      .withColumn("q",  col("q").cast("double"))
@@ -84,9 +96,7 @@ object StructuredStreaming {
 //      .withWatermark("T", "5 seconds")
     //          .as[TradeStreams] //Enable to do any Dataset operations
 
-    tradeStream.printSchema()
 
-    tradeStream.createOrReplaceTempView("trade_stream")
 
 
 //    val sql = "SELECT s as key, SUM(pq) as sum_pq, SUM(q) as sum_q FROM trade_stream GROUP BY s"
