@@ -41,7 +41,7 @@ object KafkaProducer {
       Flow.fromSinkAndSourceMat(
         Sink.foreach[Message](
           record => {
-            println(record.asInstanceOf[TextMessage].getStrictText)
+            //println(record.asInstanceOf[TextMessage].getStrictText)
             producer.send(new ProducerRecord[String, String]("binance", record.asInstanceOf[TextMessage].getStrictText))
           }
         ),
