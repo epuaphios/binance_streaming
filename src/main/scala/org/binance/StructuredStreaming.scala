@@ -60,6 +60,8 @@ object StructuredStreaming {
       .config("spark.mongodb.write.collection", "binance")
       .config("spark.jars.packages",
       "org.mongodb.spark:mongo-spark-connector:10.1.1")
+      .config("spark.streaming.kafka.maxRatePerPartition",10)
+
       //.config("spark.sql.streaming.checkpointLocation","/tmp/blockchain-streaming/sql-streaming-checkpoint")
       .master("local[4]")
       .getOrCreate()
@@ -81,10 +83,21 @@ object StructuredStreaming {
 
     val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
 
+//    val windowedCountsDF = tradeStream.withWatermark("eventTime", "2 minutes").groupBy("q", session_window("lastUpdateId", "1 minutes"))
+//val windowedCounts = words
+//  .withWatermark("timestamp", "10 minutes")
+//  .groupBy(
+//    window($"lastUpdateId", "10 minutes", "5 minutes"),
+//    $"word")
+//  .count()
+
+//    tradeStream.select('id', dense_rank.over(window.orderBy('col') ).alias('group') ).show(truncate = False)
+
      val tradeStream2= tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=coinSizeSave)
 
     val query =  tradeStream2.writeStream.format("mongodb").option("database",
-      "people").option("collection", "contacts").start()
+      "people").option("collection", "contacts").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+      .start()
 
     query.awaitTermination()
 

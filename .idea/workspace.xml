@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_12_3_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_reflect_2_12_3_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/akka-jre-example-build.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/akka-jre-example.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/plugins.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_12_16_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_reflect_2_12_16_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/binance_streaming-build.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/binance_streaming.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spark/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +118,7 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.KafkaProducer">
+  <component name="RunManager" selected="Application.StructuredStreaming">
     <configuration name="KafkaProducer" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.binance.kafka.KafkaProducer" />
       <extension name="coverage">
@@ -145,7 +133,6 @@
     </configuration>
     <configuration name="StructuredStreaming" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="org.binance.StructuredStreaming" />
-      <module name="binance_streaming" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.binance.*" />
@@ -178,10 +165,19 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="spark: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="spark/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.KafkaProducer" />
         <item itemvalue="Application.StructuredStreaming" />
+        <item itemvalue="Docker.spark: Compose Deployment" />
+        <item itemvalue="Application.KafkaProducer" />
         <item itemvalue="Docker.mongo: Compose Deployment" />
         <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
       </list>
@@ -215,7 +211,7 @@
       <workItem from="1674413422386" duration="596000" />
       <workItem from="1674415414015" duration="398000" />
       <workItem from="1675618347141" duration="10881000" />
-      <workItem from="1676839392910" duration="2793000" />
+      <workItem from="1676839392910" duration="5669000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -273,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676837320328</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add mongo compose">
+      <created>1676842263823</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1676842263823</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
