@@ -52,13 +52,16 @@ object KafkaProducer {
 //      WebSocketRequest("wss://stream.binance.com:9443/ws/aptbusd@ticker"),
 //      flow)
 
-    val (btcusdtResponse, _) =   Http().singleWebSocketRequest(
-      WebSocketRequest("wss://stream.binance.com:9443/ws/aptbusd@depth10@100ms"),
+    val (cfxBusdResponse, _) =   Http().singleWebSocketRequest(
+      WebSocketRequest("wss://stream.binance.com:9443/ws/cfxbusd@depth10@100ms"),
+      flow)
+
+    val (cfxUsdtResponse, _) = Http().singleWebSocketRequest(
+      WebSocketRequest("wss://stream.binance.com:9443/ws/cfxusdt@depth10@100ms"),
       flow)
 
 
-
-    val tradesResponse = List(btcusdtResponse) //Rude way for now!
+    val tradesResponse = List(cfxBusdResponse,cfxUsdtResponse) //Rude way for now!
 
     val connected = tradesResponse.map {
       response =>

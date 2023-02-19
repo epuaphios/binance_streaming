@@ -54,6 +54,11 @@ object StructuredStreaming {
       .builder
       .appName("BinanceStreaming")
       .config("spark.sql.caseSensitive" , "True")
+      .config("spark.mongodb.write.connection.uri", "mongodb://root:rootpassword@localhost:27017/")
+      .config("spark.mongodb.write.database", "binance")
+      .config("spark.mongodb.write.collection", "binance")
+      .config("spark.jars.packages",
+      "org.mongodb.spark:mongo-spark-connector:10.1.1")
       //.config("spark.sql.streaming.checkpointLocation","/tmp/blockchain-streaming/sql-streaming-checkpoint")
       .master("local[4]")
       .getOrCreate()
@@ -75,8 +80,10 @@ object StructuredStreaming {
 
     val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
 
-  tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=500).show(false)
+     val tradeStream2= tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=100000)
 
+    tradeStream2.write.format("mongodb").mode("append").option("database",
+      "people").option("collection", "contacts").save()
 
 
 //    tradeStream.groupBy("lastUpdateId").agg(max(col("q"))).where(col("max(q)")>=1000).show(false)
