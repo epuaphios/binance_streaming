@@ -1,17 +1,17 @@
+
 ThisBuild / version := "0.1.0-SNAPSHOT"
 
-ThisBuild / scalaVersion := "2.12.16"
+ThisBuild / scalaVersion := "2.12.3"
 
 val sparkVersion = "3.2.1"
 
 
 lazy val root = (project in file("."))
   .settings(
-    name := "binance_streaming",
+    name := "akka-jre-example",
       libraryDependencies ++= Seq (
-    //  "org.slf4j" % "slf4j-api" % "1.7.5","org.apache.spark" %% "spark-streaming" % sparkVersion,
-//      "org.apache.spark" %% "spark-core" % sparkVersion,
-      "org.apache.spark" %% "spark-sql" % sparkVersion,
+
+      "org.apache.spark" %% "spark-sql" % sparkVersion  % "provided",
       "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion,
       "org.apache.spark" %% "spark-streaming-kafka-0-10" % sparkVersion,
       "org.apache.spark" %% "spark-streaming" % sparkVersion % "provided",
@@ -28,7 +28,13 @@ lazy val root = (project in file("."))
       "org.scala-lang" % "scala-actors" % "2.11.12",
       "com.typesafe.akka" %% "akka-stream" % "2.6.19",
       "com.typesafe.akka" %% "akka-stream-kafka" % "2.1.1",
-      "org.apache.kafka" % "kafka-clients" % "3.2.1"
+      "org.apache.kafka" % "kafka-clients" % "3.2.1",
 
       ).map(_.exclude ("org.slf4j", "log4j-over-slf4j"))
+
   )
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", _*) => MergeStrategy.discard
+  case "reference.conf" => MergeStrategy.concat
+  case _                        => MergeStrategy.first
+}

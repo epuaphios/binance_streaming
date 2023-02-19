@@ -17,9 +17,10 @@ import scala.concurrent.Promise
  * Modified version of
  *   https://github.com/imranshaikmuma/Websocket-Akka-Kafka-Spark
  */
-object KafkaProducer extends App {
+object KafkaProducer {
 
-   implicit val system = ActorSystem()
+  def main(args: Array[String]): Unit = {
+    implicit val system = ActorSystem()
     implicit val materializer = ActorMaterializer()
     import system.dispatcher
 
@@ -45,12 +46,12 @@ object KafkaProducer extends App {
         ),
         Source.maybe[Message])(Keep.right)
 
-//    //TODO check how this can achieved in other ways
-//    val (xvgbtcResponse, _) =   Http().singleWebSocketRequest(
-//      WebSocketRequest("wss://stream.binance.com:9443/ws/aptbusd@ticker"),
-//      flow)
+    //    //TODO check how this can achieved in other ways
+    //    val (xvgbtcResponse, _) =   Http().singleWebSocketRequest(
+    //      WebSocketRequest("wss://stream.binance.com:9443/ws/aptbusd@ticker"),
+    //      flow)
 
-    val (cfxBusdResponse, _) =   Http().singleWebSocketRequest(
+    val (cfxBusdResponse, _) = Http().singleWebSocketRequest(
       WebSocketRequest("wss://stream.binance.com:9443/ws/cfxbusd@depth10@100ms"),
       flow)
 
@@ -59,7 +60,7 @@ object KafkaProducer extends App {
       flow)
 
 
-    val tradesResponse = List(cfxBusdResponse,cfxUsdtResponse) //Rude way for now!
+    val tradesResponse = List(cfxBusdResponse, cfxUsdtResponse) //Rude way for now!
 
     val connected = tradesResponse.map {
       response =>
@@ -75,5 +76,5 @@ object KafkaProducer extends App {
 
     connected.foreach(_.onComplete(println))
 
-
+  }
 }
