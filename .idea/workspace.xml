@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/spark/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" afterDir="false" />
@@ -211,7 +210,7 @@
       <workItem from="1674413422386" duration="596000" />
       <workItem from="1674415414015" duration="398000" />
       <workItem from="1675618347141" duration="10881000" />
-      <workItem from="1676839392910" duration="5669000" />
+      <workItem from="1676839392910" duration="7835000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -276,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676842263823</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="add mongo compose">
+      <created>1676845077305</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1676845077305</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

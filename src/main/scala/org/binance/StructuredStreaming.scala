@@ -1,7 +1,7 @@
 package org.binance
 
-import org.apache.spark.sql.expressions.Window
-import org.apache.spark.sql.functions.{col, explode, first, from_json}
+
+import org.apache.spark.sql.functions.{col, explode, from_json, window}
 import org.apache.spark.sql.streaming.Trigger
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.binance.data.Schema.arrayArraySchema
@@ -72,16 +72,22 @@ object StructuredStreaming {
     spark.sparkContext.setLogLevel("ERROR")
 
     val tradeStream = spark
-      .readStream
+      .read
       .format("kafka")
       .option("subscribe", "binance")
       .option("kafka.bootstrap.servers", "localhost:9092")
       .option("startingOffsets", "earliest")
       .load
-      .selectExpr("cast(value as string) as value") //casting binary values into string
-      .select(from_json(col("value"), arrayArraySchema).alias("tmp")).select(col("tmp.lastUpdateId"), explode(col("tmp.bids"))).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"))
+      .selectExpr("cast(value as string) as value","timestamp") //casting binary values into string
+      .select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp")).select(col("tmp.lastUpdateId"), explode(col("tmp.bids")),col("timestamp")).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"),col("timestamp")).show(false)
 
-    val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
+    import spark.implicits._
+
+    val windowedCounts = tradeStream.groupBy(window($"timestamp", "10 minutes", "5 minutes"),
+      $"word"
+    ).count()
+
+//    val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
 
 //    val windowedCountsDF = tradeStream.withWatermark("eventTime", "2 minutes").groupBy("q", session_window("lastUpdateId", "1 minutes"))
 //val windowedCounts = words
@@ -93,13 +99,13 @@ object StructuredStreaming {
 
 //    tradeStream.select('id', dense_rank.over(window.orderBy('col') ).alias('group') ).show(truncate = False)
 
-     val tradeStream2= tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=coinSizeSave)
-
-    val query =  tradeStream2.writeStream.format("mongodb").option("database",
-      "people").option("collection", "contacts").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
-      .start()
-
-    query.awaitTermination()
+//     val tradeStream2= tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=coinSizeSave)
+//
+//    val query =  tradeStream2.writeStream.format("mongodb").option("database",
+//      "people").option("collection", "contacts").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+//      .start()
+//
+//    query.awaitTermination()
 
 
 
