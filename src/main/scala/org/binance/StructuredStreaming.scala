@@ -48,6 +48,7 @@ object StructuredStreaming {
   }
   def main(args: Array[String]): Unit = {
 
+    val coinSizeSave = 100000;
 
     val vwapCombiner = new VWAPCombiner()
     val spark = SparkSession
@@ -69,7 +70,7 @@ object StructuredStreaming {
     spark.sparkContext.setLogLevel("ERROR")
 
     val tradeStream = spark
-      .read
+      .readStream
       .format("kafka")
       .option("subscribe", "binance")
       .option("kafka.bootstrap.servers", "localhost:9092")
@@ -80,13 +81,16 @@ object StructuredStreaming {
 
     val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
 
-     val tradeStream2= tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=100000)
+     val tradeStream2= tradeStream.withColumn("max_q", first(tradeStream("q")).over(windowSpec).as("max_sq")).filter("max_sq = q").where(col("max_q")>=coinSizeSave)
 
-    tradeStream2.write.format("mongodb").mode("append").option("database",
-      "people").option("collection", "contacts").save()
+    val query =  tradeStream2.writeStream.format("mongodb").option("database",
+      "people").option("collection", "contacts").start()
+
+    query.awaitTermination()
 
 
-//    tradeStream.groupBy("lastUpdateId").agg(max(col("q"))).where(col("max(q)")>=1000).show(false)
+
+    //    tradeStream.groupBy("lastUpdateId").agg(max(col("q"))).where(col("max(q)")>=1000).show(false)
 //
 //    tradeStream.
 

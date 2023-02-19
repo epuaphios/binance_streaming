@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/mongo/docker-compose.yml" afterDir="false" />
+    <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="add mongo compose">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +97,7 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.KafkaProducer">
+  <component name="RunManager" selected="Application.StructuredStreaming">
     <configuration name="KafkaProducer" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.binance.kafka.KafkaProducer" />
       <module name="binance_streaming" />
@@ -147,10 +146,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.StructuredStreaming" />
         <item itemvalue="Application.KafkaProducer" />
         <item itemvalue="Docker.mongo: Compose Deployment" />
         <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
-        <item itemvalue="Application.StructuredStreaming" />
       </list>
     </recent_temporary>
   </component>
@@ -225,7 +224,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675629939566</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add mongo compose">
+      <created>1676835829622</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1676835829622</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,7 +251,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sec" />
     <MESSAGE value="docker-compose" />
-    <option name="LAST_COMMIT_MESSAGE" value="docker-compose" />
+    <MESSAGE value="add mongo compose" />
+    <option name="LAST_COMMIT_MESSAGE" value="add mongo compose" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

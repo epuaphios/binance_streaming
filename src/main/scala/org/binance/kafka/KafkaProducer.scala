@@ -17,11 +17,9 @@ import scala.concurrent.Promise
  * Modified version of
  *   https://github.com/imranshaikmuma/Websocket-Akka-Kafka-Spark
  */
-object KafkaProducer {
+object KafkaProducer extends App {
 
-
-  def main(args: Array[String]): Unit = {
-    implicit val system = ActorSystem()
+   implicit val system = ActorSystem()
     implicit val materializer = ActorMaterializer()
     import system.dispatcher
 
@@ -78,5 +76,4 @@ object KafkaProducer {
     connected.foreach(_.onComplete(println))
 
 
-  }
 }
