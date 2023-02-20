@@ -210,7 +210,7 @@
       <workItem from="1674415414015" duration="398000" />
       <workItem from="1675618347141" duration="10881000" />
       <workItem from="1676839392910" duration="7835000" />
-      <workItem from="1676924315985" duration="5237000" />
+      <workItem from="1676924315985" duration="6060000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -289,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676930294835</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add mongo compose">
+      <created>1676932651918</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676932651918</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

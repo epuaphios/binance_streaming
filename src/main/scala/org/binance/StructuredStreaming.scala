@@ -1,7 +1,7 @@
 package org.binance
 
 
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.{col, explode, from_json, window}
 import org.binance.data.Schema.arrayArraySchema
 
@@ -86,15 +86,20 @@ object StructuredStreaming {
       $"p"
     ).sum("q")//.where(col("sum(q)")>=coinSizeSave)
 
+      val query =  windowedCounts.writeStream.format("mongodb").option("database",
+        "people").option("collection", "contacts").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+        .start().awaitTermination()
+
+
     //windowedCounts.show(false)
-
-  def myFunc(askDF: DataFrame, batchID: Long): Unit = {
-    askDF.persist()
-    askDF.write.format("mongodb").option("database", "binance").option("collection", "set").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
-    askDF.unpersist()
-  }
-
-    windowedCounts.writeStream.foreachBatch(myFunc _).start().awaitTermination()
+//
+//  def myFunc(askDF: DataFrame, batchID: Long): Unit = {
+//    askDF.persist()
+//    askDF.write.format("mongodb").option("database", "binance").option("collection", "set").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+//    askDF.unpersist()
+//  }
+//
+//    windowedCounts.writeStream.foreachBatch(myFunc _).start().awaitTermination()
 
 //
 //          windowedCounts.writeStream.foreachBatch(
