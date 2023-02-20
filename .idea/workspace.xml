@@ -7,7 +7,6 @@
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/data/Schema.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -175,10 +174,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StructuredStreaming" />
+        <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Docker.spark: Compose Deployment" />
         <item itemvalue="Application.KafkaProducer" />
         <item itemvalue="Docker.mongo: Compose Deployment" />
-        <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -211,6 +210,7 @@
       <workItem from="1674415414015" duration="398000" />
       <workItem from="1675618347141" duration="10881000" />
       <workItem from="1676839392910" duration="7835000" />
+      <workItem from="1676924315985" duration="2840000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>

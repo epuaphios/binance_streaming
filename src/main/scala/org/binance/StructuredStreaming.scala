@@ -79,13 +79,15 @@ object StructuredStreaming {
       .option("startingOffsets", "earliest")
       .load
       .selectExpr("cast(value as string) as value","timestamp") //casting binary values into string
-      .select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp")).select(col("tmp.lastUpdateId"), explode(col("tmp.bids")),col("timestamp")).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"),col("timestamp")).show(false)
+      .select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp")).select(col("tmp.lastUpdateId"), explode(col("tmp.bids")),col("timestamp")).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"),col("timestamp"))
 
     import spark.implicits._
 
-    val windowedCounts = tradeStream.groupBy(window($"timestamp", "10 minutes", "5 minutes"),
-      $"word"
-    ).count()
+    val windowedCounts = tradeStream.groupBy(window($"timestamp", "2 minutes", "1 minutes"),
+      $"q"
+    ).sum()
+
+    windowedCounts.show(false)
 
 //    val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
 
