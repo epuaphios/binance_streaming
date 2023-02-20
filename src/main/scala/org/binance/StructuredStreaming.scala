@@ -1,56 +1,55 @@
 package org.binance
 
 
-import org.apache.spark.sql.functions.{col, explode, from_json, window}
-import org.apache.spark.sql.streaming.Trigger
 import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.functions.{col, explode, from_json, window}
 import org.binance.data.Schema.arrayArraySchema
-import org.binance.spark.VWAPCombiner
-
-import java.util.concurrent.TimeUnit
 
 /**
   * //https://databricks.com/blog/2017/04/26/processing-data-in-apache-kafka-with-structured-streaming-in-apache-spark-2-2.html
   */
 object StructuredStreaming {
 
-  def toConsole(df: DataFrame, intervalSeconds: Long) = {
-    df
-      .writeStream
-      //      .outputMode("complete")
-      .format("console")
-      .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
-      .option("truncate",false)
-      .start()
-  }
+//  def toConsole(df: DataFrame, intervalSeconds: Long) = {
+//    df
+//      .writeStream
+//      //      .outputMode("complete")
+//      .format("console")
+//      .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
+//      .option("truncate",false)
+//      .start()
+//  }
 
-  def aggDfToConsole(df: DataFrame, intervalSeconds: Long, is_last: Boolean = false) = {
-
-    if (is_last) {
-      df
-        .writeStream
-        .outputMode("complete")
-        .format("console")
-        .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
-        .option("truncate",false)
-        .start()
-        .awaitTermination()
-    } else {
-      df
-        .writeStream
-        .outputMode("complete")
-        .format("console")
-        .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
-        .option("truncate",false)
-        .start()
-    }
-
-  }
+//  def aggDfToConsole(df: DataFrame, intervalSeconds: Long, is_last: Boolean = false) = {
+//
+//    if (is_last) {
+//      df
+//        .writeStream
+//        .outputMode("complete")
+//        .format("console")
+//        .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
+//        .option("truncate",false)
+//        .start()
+//        .awaitTermination()
+//    } else {
+//      df
+//        .writeStream
+//        .outputMode("complete")
+//        .format("console")
+//        .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
+//        .option("truncate",false)
+//        .start()
+//    }
+//
+//  }
   def main(args: Array[String]): Unit = {
+
+
+
 
     val coinSizeSave = 100000;
 
-    val vwapCombiner = new VWAPCombiner()
+//    val vwapCombiner = new VWAPCombiner()
     val spark = SparkSession
       .builder
       .appName("BinanceStreaming")
@@ -60,7 +59,7 @@ object StructuredStreaming {
       .config("spark.mongodb.write.collection", "binance")
       .config("spark.jars.packages",
       "org.mongodb.spark:mongo-spark-connector:10.1.1")
-      .config("spark.streaming.kafka.maxRatePerPartition",10)
+      //.config("spark.streaming.kafka.maxRatePerPartition",10)
 
       //.config("spark.sql.streaming.checkpointLocation","/tmp/blockchain-streaming/sql-streaming-checkpoint")
       .master("local[4]")
@@ -72,7 +71,7 @@ object StructuredStreaming {
     spark.sparkContext.setLogLevel("ERROR")
 
     val tradeStream = spark
-      .read
+      .readStream
       .format("kafka")
       .option("subscribe", "binance")
       .option("kafka.bootstrap.servers", "localhost:9092")
@@ -83,11 +82,41 @@ object StructuredStreaming {
 
     import spark.implicits._
 
-    val windowedCounts = tradeStream.groupBy(window($"timestamp", "2 minutes", "1 minutes"),
-      $"q"
-    ).sum()
+    val windowedCounts = tradeStream.withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
+      $"p"
+    ).sum("q")//.where(col("sum(q)")>=coinSizeSave)
 
-    windowedCounts.show(false)
+    //windowedCounts.show(false)
+
+  def myFunc(askDF: DataFrame, batchID: Long): Unit = {
+    askDF.persist()
+    askDF.write.format("mongodb").option("database", "binance").option("collection", "set").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+    askDF.unpersist()
+  }
+
+    windowedCounts.writeStream.foreachBatch(myFunc _).start().awaitTermination()
+
+//
+//          windowedCounts.writeStream.foreachBatch(
+//            (outputDf: DataFrame, bid: Long) => {
+//              outputDf.persist()
+//              outputDf.write.format("mongodb").option("database", "people").option("collection", "contacts").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+//              outputDf.unpersist()
+//          }).start().awaitTermination()
+
+
+
+//  def toConsole(df: DataFrame, intervalSeconds: Long) = {
+//    df
+//      .writeStream
+//      //      .outputMode("complete")
+//      .format("console")
+//      .trigger(Trigger.ProcessingTime(intervalSeconds, TimeUnit.SECONDS))
+//      .option("truncate", false)
+//      .start()
+//  }
+
+
 
 //    val windowSpec = Window.partitionBy(tradeStream("lastUpdateId")).orderBy(tradeStream("q").desc)
 

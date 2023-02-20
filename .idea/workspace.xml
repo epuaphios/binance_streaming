@@ -174,10 +174,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.StructuredStreaming" />
+        <item itemvalue="Docker.mongo: Compose Deployment" />
         <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Docker.spark: Compose Deployment" />
         <item itemvalue="Application.KafkaProducer" />
-        <item itemvalue="Docker.mongo: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -210,7 +210,7 @@
       <workItem from="1674415414015" duration="398000" />
       <workItem from="1675618347141" duration="10881000" />
       <workItem from="1676839392910" duration="7835000" />
-      <workItem from="1676924315985" duration="2840000" />
+      <workItem from="1676924315985" duration="5237000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -282,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676845077305</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add mongo compose">
+      <created>1676930294835</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1676930294835</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -308,5 +315,16 @@
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala</url>
+          <line>44</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
