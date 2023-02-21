@@ -92,12 +92,15 @@ object StructuredStreaming {
 
 
 
+
+
   val windowedCountsB = tradeStreamW.withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
         $"lastUpdateId"
     ).sum("bids_q","asks_q")
 
-  tradeStreamW.withColumn("status",when(col("asks_p")>coinSizeSave,"sell").when(col("bids_p")>coinSizeSave,"buy")).select(col("timestamp"),col("lastUpdateId"),col("status"),col("bids_p"),col("asks_p"),col("bids_q"),col("asks_q")).writeStream.format("mongodb").option("database","binance").option("collection", "bigVolume").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint").start()
 
+  tradeStreamW.where(col("asks_q") > coinSizeSave || col("bids_q") > coinSizeSave)
+    .withColumn("status", when(col("asks_q") > coinSizeSave, "sell").when(col("bids_q") > coinSizeSave, "buy")).select(col("timestamp"), col("lastUpdateId"), col("status"), col("bids_p"), col("asks_p"), col("bids_q"), col("asks_q")).writeStream.format("mongodb").option("database", "binance").option("collection", "bigvolume").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint").start()
 
   windowedCountsB.writeStream.format("mongodb").option("database",
      "binance").option("collection", "window").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
