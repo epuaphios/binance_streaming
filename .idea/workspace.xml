@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/org/binance/VolumeStream.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/org/binance/WindowStream.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,12 +118,14 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.StructuredStreaming">
-    <configuration name="KafkaProducer" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.binance.kafka.KafkaProducer" />
+  <component name="RunManager" selected="Application.WindowStream">
+    <configuration name="VolumeStream" type="Application" factoryName="Application" temporary="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="org.binance.VolumeStream" />
+      <module name="akka-jre-example" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.binance.kafka.*" />
+          <option name="PATTERN" value="org.binance.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -129,8 +133,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StructuredStreaming" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="org.binance.StructuredStreaming" />
+    <configuration name="WindowStream" type="Application" factoryName="Application" temporary="true">
+      <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
+      <option name="MAIN_CLASS_NAME" value="org.binance.WindowStream" />
+      <module name="akka-jre-example" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="org.binance.*" />
@@ -163,21 +169,18 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="spark: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
-      <deployment type="docker-compose.yml">
-        <settings>
-          <option name="sourceFilePath" value="spark/docker-compose.yml" />
-        </settings>
-      </deployment>
-      <method v="2" />
-    </configuration>
+    <list>
+      <item itemvalue="Application.VolumeStream" />
+      <item itemvalue="Application.WindowStream" />
+      <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
+      <item itemvalue="Docker.mongo: Compose Deployment" />
+    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.StructuredStreaming" />
+        <item itemvalue="Application.WindowStream" />
+        <item itemvalue="Application.VolumeStream" />
         <item itemvalue="Docker.mongo: Compose Deployment" />
         <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
-        <item itemvalue="Docker.spark: Compose Deployment" />
-        <item itemvalue="Application.KafkaProducer" />
       </list>
     </recent_temporary>
   </component>
@@ -304,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677015832022</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="add mongo compose">
+      <created>1677016953654</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1677016953654</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,8 +345,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala</url>
-          <line>44</line>
+          <url>file://$PROJECT_DIR$/src/main/scala/org/binance/VolumeStream.scala</url>
+          <line>12</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
