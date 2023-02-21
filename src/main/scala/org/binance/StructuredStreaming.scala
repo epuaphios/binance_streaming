@@ -2,7 +2,7 @@ package org.binance
 
 
 import org.apache.spark.sql.SparkSession
-import org.apache.spark.sql.functions.{col, explode, from_json, window}
+import org.apache.spark.sql.functions._
 import org.binance.data.Schema.arrayArraySchema
 
 /**
@@ -79,33 +79,58 @@ object StructuredStreaming {
       .option("kafka.bootstrap.servers", "localhost:9092")
       .option("startingOffsets", "earliest")
       .load
-      .selectExpr("cast(value as string) as value","timestamp") //casting binary values into string
+      .selectExpr("cast(value as string) as value","timestamp")
+      .select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp"))//casting binary values into string
 
-  val tradeStreamBought = tradeStream.select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp")).select(col("tmp.lastUpdateId"), explode(col("tmp.bids")),col("timestamp")).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"),col("timestamp"))
-
-
-  val tradeStreamSell = tradeStream.select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp")).select(col("tmp.lastUpdateId"), explode(col("tmp.asks")),col("timestamp")).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"),col("timestamp"))
 
   import spark.implicits._
 
-  val windowedCountsB = tradeStreamBought.where(col("q")>=coinSizeSave).withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
-      $"p"
-  ).sum("q")//
-
-  val windowedCountsS = tradeStreamSell.where(col("q") >= coinSizeSave).withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
-    $"p"
-  ).sum("q") //
+  val tradeStreamW =tradeStream.withColumn("vars", explode(arrays_zip($"tmp.bids", $"tmp.asks"))).select(
+    $"timestamp", $"tmp.lastUpdateId", $"vars.bids".getItem(0).cast("float").alias("bids_p")
+    ,$"vars.bids".getItem(1).cast("float").alias("bids_q"), $"vars.asks".getItem(0).cast("float").alias("asks_p")
+    ,$"vars.asks".getItem(1).cast("float").alias("asks_q"))
 
 
-  val query =  windowedCountsB.writeStream.format("mongodb").option("database",
-        "binance").option("collection", "bought").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
-        .start()
+
+  val windowedCountsB = tradeStreamW.withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
+        $"lastUpdateId"
+    ).sum("bids_q","asks_q")
+
+  tradeStreamW.withColumn("status",when(col("asks_p")>coinSizeSave,"sell").when(col("bids_p")>coinSizeSave,"buy")).select(col("timestamp"),col("lastUpdateId"),col("status"),col("bids_p"),col("asks_p"),col("bids_q"),col("asks_q")).writeStream.format("mongodb").option("database","binance").option("collection", "bigVolume").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint").start()
 
 
-  val query1 = windowedCountsS.writeStream.format("mongodb").option("database",
-      "binance").option("collection", "sell").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
-      .start().awaitTermination()
+  windowedCountsB.writeStream.format("mongodb").option("database",
+     "binance").option("collection", "window").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+     .start().awaitTermination()
 
+
+
+//  val tradeStreamSell = tradeStream.select(from_json(col("value"), arrayArraySchema).alias("tmp"),col("timestamp")).select(col("tmp.lastUpdateId"), explode(col("tmp.asks")),col("timestamp")).select(col("lastUpdateId"), col("col").getItem(0).cast("float").alias("p"), col("col").getItem(1).cast("float").alias("q"),col("timestamp"))
+
+
+//  tradeStream.withColumn("vars", explode(arrays_zip($"varA", $"varB"))).select(
+//    $"userId", $"someString",
+//    $"vars.varA", $"vars.varB").show
+
+
+//  val windowedCountsB = tradeStreamBought.where(col("q")>=coinSizeSave).withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
+//      $"p"
+//  ).sum("q")//
+//
+//  val windowedCountsS = tradeStreamSell.where(col("q") >= coinSizeSave).withWatermark("timestamp", "5 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes"),
+//    $"p"
+//  ).sum("q") //
+
+
+//  val query =  windowedCountsB.writeStream.format("mongodb").option("database",
+//        "binance").option("collection", "bought").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+//        .start()
+//
+//
+//  val query1 = windowedCountsS.writeStream.format("mongodb").option("database",
+//      "binance").option("collection", "sell").option("checkpointLocation", "/home/ogn/denemeler/big_data/binance_streaming/checkpoint")
+//      .start().awaitTermination()
+//
 
 
     //windowedCounts.show(false)
