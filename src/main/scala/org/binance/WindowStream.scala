@@ -51,7 +51,7 @@ object WindowStream {
       , $"vars.asks".getItem(1).cast("float").alias("asks_q"))
 
     //
-    val windowedCountsB = tradeStreamW.withWatermark("timestamp", "2 minutes").groupBy(window($"timestamp", "2 minutes", "1 minutes")
+    val windowedCountsB = tradeStreamW.withWatermark("timestamp", "1 minutes").groupBy(window($"timestamp", "1 minutes", "1 minutes")
     ).sum("bids_q", "asks_q")
 
 
