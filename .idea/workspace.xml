@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9496cce2-dab9-4f7e-9968-f6cb8bb8aaef" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/org/binance/VolumeStream.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/org/binance/WindowStream.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/StructuredStreaming.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/org/binance/kafka/KafkaProducer.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +116,20 @@
       <recent name="org.binance.spark" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.WindowStream">
+  <component name="RunManager" selected="Docker.kafka/docker-compose.yaml: Compose Deployment">
+    <configuration name="KafkaProducer" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.binance.kafka.KafkaProducer" />
+      <module name="akka-jre-example" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.binance.kafka.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="VolumeStream" type="Application" factoryName="Application" temporary="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
       <option name="MAIN_CLASS_NAME" value="org.binance.VolumeStream" />
@@ -170,6 +181,7 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Application.KafkaProducer" />
       <item itemvalue="Application.VolumeStream" />
       <item itemvalue="Application.WindowStream" />
       <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
@@ -177,10 +189,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
+        <item itemvalue="Application.KafkaProducer" />
         <item itemvalue="Application.WindowStream" />
         <item itemvalue="Application.VolumeStream" />
         <item itemvalue="Docker.mongo: Compose Deployment" />
-        <item itemvalue="Docker.kafka/docker-compose.yaml: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -215,6 +228,7 @@
       <workItem from="1676839392910" duration="7835000" />
       <workItem from="1676924315985" duration="6060000" />
       <workItem from="1677008102582" duration="1336000" />
+      <workItem from="1677183361076" duration="1528000" />
     </task>
     <task id="LOCAL-00001" summary="sec">
       <created>1662932997550</created>
@@ -314,7 +328,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677016953654</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="add mongo compose">
+      <created>1677183554729</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677183554729</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

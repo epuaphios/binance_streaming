@@ -52,11 +52,11 @@ object KafkaProducer {
     //      flow)
 
     val (cfxBusdResponse, _) = Http().singleWebSocketRequest(
-      WebSocketRequest("wss://stream.binance.com:9443/ws/cfxbusd@depth10@100ms"),
+      WebSocketRequest("wss://stream.binance.com:9443/ws/cfxbusd@depth1000@100ms"),
       flow)
 
     val (cfxUsdtResponse, _) = Http().singleWebSocketRequest(
-      WebSocketRequest("wss://stream.binance.com:9443/ws/cfxusdt@depth10@100ms"),
+      WebSocketRequest("wss://stream.binance.com:9443/ws/cfxusdt@depth1000@100ms"),
       flow)
 
 
